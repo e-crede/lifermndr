@@ -30,9 +30,9 @@ class SendRemindersJob < ApplicationJob
 
   def send_telegram(msg)
     # FIXME: Load token and chat_id from yaml
-    token = '5236303876:AAEk8OuEnjLxtm3L6pCJjdbAagJurPeSnb8'
+    token = ENV["LIFERMNDR_BOT_TOKEN"]
     bot = Telegram::Bot::Client.new(token)
-    bot.api.send_message(chat_id: 1792029600, text: "#{msg}")
+    bot.api.send_message(chat_id: ENV["LIFERMNDR_CHAT_ID"], text: "#{msg}")
   end
   
   def send_messages(matching_reminders)
