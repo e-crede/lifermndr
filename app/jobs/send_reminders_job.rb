@@ -9,10 +9,23 @@ class SendRemindersJob < ApplicationJob
     matching_reminders = []
     reminders.each do |reminder|
     if reminder.active?
-        matching_reminders.push(reminder)
+        matching = subfilter_date(reminder)
+        matching_reminders.push(reminder) if matching
     end 
     end
     matching_reminders
+  end
+
+  def subfilter_date(reminder)
+    matching = false
+    remaining_days = (reminder.date - Date.today).to_int
+    matching = true if (remaining_days - 60 == 0 ) && reminder._60d
+    matching = true if (remaining_days - 30 == 0 ) && reminder._30d
+    matching = true if (remaining_days - 14 == 0 ) && reminder._14d
+    matching = true if (remaining_days - 7 == 0 ) && reminder._7d
+    matching = true if (remaining_days - 1 == 0 ) && reminder._1d
+    matching = true if (remaining_days == 0 )
+    matching
   end
 
   def send_telegram(msg)
@@ -21,12 +34,14 @@ class SendRemindersJob < ApplicationJob
     bot = Telegram::Bot::Client.new(token)
     bot.api.send_message(chat_id: 1792029600, text: "#{msg}")
   end
+  
   def send_messages(matching_reminders)
-    send_telegram("LifeRmndrs of today:")
+    msg = "LifeRmndrs for #{Date.today}:\n"
     matching_reminders.each do |reminder|
-      msg = "Upcoming event: #{reminder.name} at #{reminder.date}"
-      send_telegram(msg)
+      msg_partial = "- #{reminder.name} at #{reminder.date}\n"
+      msg += msg_partial
     end
+    send_telegram(msg)
   end
 
   def perform(*args)

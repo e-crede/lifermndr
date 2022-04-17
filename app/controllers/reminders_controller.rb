@@ -5,8 +5,8 @@ class RemindersController < ApplicationController
   # GET /reminders or /reminders.json
   def index
     @reminders = User.find_by(id: current_user).reminders
-    # FIXME: Need a permanent location to Start jobs, e.g. at the start of application 
-    # SendRemindersJob.perform_later
+    # TODO: A permanent location to Start schedulled jobs 
+    SendRemindersJob.perform_later
   end
 
   # GET /reminders/1 or /reminders/1.json
