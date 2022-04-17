@@ -41,7 +41,7 @@ class SendRemindersJob < ApplicationJob
       msg_partial = "- #{reminder.name} at #{reminder.date}\n"
       msg += msg_partial
     end
-    send_telegram(msg)
+    send_telegram(msg) if msg.length > 30
   end
 
   def perform(*args)
