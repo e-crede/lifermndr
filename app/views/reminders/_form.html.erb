@@ -1,21 +1,19 @@
-<%= form_with(model: reminder) do |form| %>
-  <div class="card">
-  <div class="card-body">
+<%= form_with(model: reminder, class: "needs-validation") do |form| %>
   <% if reminder.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(reminder.errors.count, "error") %> prohibited this reminder from being saved:</h2>
-
-      <ul>
         <% reminder.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <%= error.full_message %>
+   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
         <% end %>
-      </ul>
     </div>
   <% end %>
+  <div class="card" style="width: 700px; margin: auto;">
+  <div class="card-body">
 
   <div class="mb-3">
     <%= form.label 'Reminder Name', class: "form-label" %>
-    <%= form.text_field :name, class: "form-control" %>
+    <%= form.text_field :name, class: "form-control", html: "required" %>
   </div>
 
   <div class="mb-3">
@@ -56,8 +54,8 @@
 
     <div class="mb-3">
     <%= form.label :recurrence, class: "form-label"  %>
-      <select class="form-select" name="reminder[recurrence]" id="reminder_recurrence" aria-label="RecurrenceSelection">
-        <option selected>Select recurrence</option>
+      <select class="form-select" name="reminder[recurrence]" id="reminder_recurrence" aria-label="RecurrenceSelection" >
+        <option selected><%= @reminder.recurrence.to_s.empty? ? "" : @reminder.recurrence.capitalize %></option>
             <option value="once">Once</option>
             <option value="weekly">Weekly</option>
             <option value="monthly">Monthly</option>

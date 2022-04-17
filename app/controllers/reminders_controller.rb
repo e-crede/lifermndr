@@ -7,8 +7,9 @@ class RemindersController < ApplicationController
     @reminders = User.find_by(id: current_user).reminders
   end
 
-  # GET /reminders/1 or /reminders/1.json
+  # redirect to index
   def show
+    redirect_to action: "index"
   end
 
   # GET /reminders/new
@@ -54,7 +55,7 @@ class RemindersController < ApplicationController
     @reminder.destroy
 
     respond_to do |format|
-      format.html { redirect_to reminders_url, notice: "Reminder was successfully destroyed." }
+      format.html { redirect_to reminders_url, notice: "Reminder was successfully deleted." }
       format.json { head :no_content }
     end
   end
