@@ -1,0 +1,79 @@
+<%= form_with(model: reminder) do |form| %>
+  <div class="card">
+  <div class="card-body">
+  <% if reminder.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(reminder.errors.count, "error") %> prohibited this reminder from being saved:</h2>
+
+      <ul>
+        <% reminder.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :date, class: "form-label"  %>
+    <%= form.date_field :date, class: "form-control"  %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :hour, class: "form-label"  %>
+    <%= form.time_field :hour, class: "form-control"  %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :period, class: "form-label"  %>
+    <div class="form-check form-check-inline">
+      <%= form.label :_1d, class: "form-check-label"  %>
+      <%= form.check_box :_1d, class: "form-check-input" %>
+    </div>
+    <div class="form-check form-check-inline">
+      <%= form.label :_7d, class: "form-check-label"  %>
+      <%= form.check_box :_7d, class: "form-check-input" %>
+    </div>
+    <div class="form-check form-check-inline">
+      <%= form.label :_14d, class: "form-check-label"  %>
+      <%= form.check_box :_14d, class: "form-check-input" %>
+    </div>
+    <div class="form-check form-check-inline">
+      <%= form.label :_30d, class: "form-check-label"  %>
+      <%= form.check_box :_30d, class: "form-check-input" %>
+    </div>
+    <div class="form-check form-check-inline">
+      <%= form.label :_60d, class: "form-check-label"  %>
+      <%= form.check_box :_60d, class: "form-check-input" %>
+    </div>  
+  </div>
+
+    <div class="mb-3">
+    <%= form.label :recurrence, class: "form-label"  %>
+      <select class="form-select" name="reminder[recurrence]" id="reminder_recurrence" aria-label="RecurrenceSelection">
+        <option selected>Select recurrence</option>
+            <option value="once">Once</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+      </select>
+    </div>
+
+  <div class="mb-3">
+    <%= form.label :active, class: "form-check-label"  %>
+    <%= form.check_box :active, class: "form-check-label" %>
+  </div>
+
+
+
+
+  <div class="mb-3">
+    <%= form.submit "Save", class: "btn btn-outline-primary btn-lg" %>
+  </div>
+  </div>
+  </div>
+<% end %>

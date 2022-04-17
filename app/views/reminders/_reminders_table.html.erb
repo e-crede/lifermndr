@@ -1,0 +1,26 @@
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Hour</th>
+      <th scope="col">Period</th>
+      <th scope="col">Recurrence</th>
+      <th scope="col">Active</th>
+      <th scope="col">Controls</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @reminders.each do |reminder| %>
+      <tr>
+      <td><%= reminder.name %></td>
+      <td><%= reminder.date %></td>
+      <td><%= reminder.hour %></td>
+      <td><%= reminder.period %></td>
+      <td><%= reminder.recurrence %></td>
+      <td><%= reminder.active %></td>
+      <td><%= link_to "Edit", edit_reminder_path(reminder) %> <%= link_to "Delete", reminder, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+  </table>

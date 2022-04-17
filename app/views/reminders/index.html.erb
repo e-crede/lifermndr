@@ -1,0 +1,10 @@
+<h1>My Reminders</h1>
+<h4><%= current_user.email %></h4>
+
+<div id="reminders">
+ <%= render 'reminders_table' %>
+</div>
+
+</br>
+<a href="<%= new_reminder_path %>" type="button" class="btn btn-outline-primary btn-lg">New reminder</a>
+
