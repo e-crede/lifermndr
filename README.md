@@ -21,3 +21,6 @@ An application that sends reminders of upcoming ocassions via telegram.
     - configured per-user via a database
     - configurable: chat-id, token
 - reminders to be sent at user-selectable hours of the day
+
+## Demo
+http://lifermndr.kublinskas.com/
